@@ -8,48 +8,118 @@
     <link rel="stylesheet" href="/cardapio-dinamicoo/assets/css/style.css">
     <style>
         body {
-            color: <?php echo $text_color; ?>; 
+            color: <?php echo $text_color; ?>;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
         }
+
         header {
             background-color: <?php echo $primary_color; ?>;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px;
+            padding: 10px 20px;
+            flex-wrap: wrap; /* Permite que os elementos se ajustem em telas menores */
         }
+
         .logo-container {
-           display: inline-block;
-           width: 100px; /* Ajuste a largura desejada */
-           height: 100px; /* Ajuste a altura desejada */
-            overflow: hidden; /* Isso impede que o conteúdo exceda o tamanho do container */
+            display: flex;
+            align-items: center;
+            max-width: 100px; /* Ajuste a largura máxima desejada */
+            height: auto;
+            overflow: hidden; /* Impede que o conteúdo exceda o container */
         }
+
         .logo-container img {
-           width: 100%;
-           height: auto; /* Mantém a proporção da imagem ao ajustar a largura */
+            width: 100%;
+            height: auto; /* Mantém a proporção da imagem */
         }
+
         .return-button-container {
-            display: inline-block;
+            margin: 10px 0;
         }
+
         .return-button {
             text-decoration: none;
-            color: white;
+            color: white; /* Texto branco */
             background-color: #f0d28b;
             padding: 10px 20px;
             border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
         }
+
+        .return-button:hover {
+            background-color: #e0b94f; /* Cor de hover */
+        }
+
         nav ul {
             list-style: none;
             margin: 0;
             padding: 0;
             display: flex;
             gap: 15px;
+            flex-wrap: wrap; /* Permite a quebra de linha em telas menores */
         }
+
         nav ul li {
-            display: inline;
+            display: inline-block;
         }
+
         nav ul li a {
             text-decoration: none;
             color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #d4af37; /* Cor de hover */
+        }
+
+        /* Responsividade para telas menores */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .logo-container {
+                margin-bottom: 10px;
+            }
+
+            .return-button-container {
+                margin-bottom: 10px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+            }
+
+            .return-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo-container {
+                max-width: 80px; /* Reduz o tamanho da logo em telas menores */
+            }
+
+            .site-title {
+                font-size: 1em;
+                text-align: center;
+                margin: 0;
+            }
         }
     </style>
 </head>
@@ -66,7 +136,7 @@
         <a href="/cardapio-dinamicoo/index.php" class="return-button">Retornar ao Início</a>
     </div>
 
-
+    <!-- Navegação principal -->
     <nav>
         <ul>
             <?php foreach ($sections as $id => $section): ?>
