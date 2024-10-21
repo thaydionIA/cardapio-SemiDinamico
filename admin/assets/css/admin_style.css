@@ -10,8 +10,10 @@ body {
     min-height: 100vh;
 }
 
+/* Contêiner principal do painel */
 .admin-container {
     width: 80%;
+    max-width: 1200px; /* Limita a largura máxima */
     margin: 0 auto;
     background-color: #d4af37;
     padding: 20px;
@@ -24,8 +26,10 @@ body {
 h1 {
     color: #444;
     margin-bottom: 20px;
+    text-align: center; /* Centraliza o título */
 }
 
+/* Estilos dos formulários */
 form label {
     display: block;
     margin-bottom: 5px;
@@ -39,26 +43,29 @@ form input[type="file"],
 form textarea,
 form select {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    box-sizing: border-box; /* Garante responsividade */
 }
 
 form button[type="submit"] {
     background-color: #5cb85c;
     color: white;
-    padding: 10px 15px;
+    padding: 12px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    width: 100%; /* Botão responsivo */
 }
 
 form button[type="submit"]:hover {
     background-color: #4cae4c;
 }
 
+/* Estilos dos links */
 a {
     color: #337ab7;
     text-decoration: none;
@@ -68,17 +75,27 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Estilo para a tabela de gerenciamento de produtos */
+/* Estilo para o contêiner da tabela */
+.table-container {
+    overflow-x: auto; /* Ativa rolagem horizontal */
+    -webkit-overflow-scrolling: touch; /* Suaviza a rolagem em iOS */
+    background-color: #d4af37; /* Fundo amarelo */
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
 table {
     width: 100%;
+    min-width: 700px; /* Largura mínima para rolagem horizontal */
     border-collapse: collapse;
     margin-bottom: 20px;
 }
 
 table th, table td {
-    padding: 10px;
+    padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    white-space: nowrap; /* Impede quebra de linha */
 }
 
 table th {
@@ -87,33 +104,28 @@ table th {
 }
 
 table img {
-    max-width: 50px;
+    max-width: 100%;
+    height: auto;
     border-radius: 4px;
 }
+
 /* Estilo do rodapé */
 footer {
-    width: 100%;/* O rodapé ocupa toda a largura da página */
-    background-color: #1c1c1c; /* Cor de fundo */
-    color: #d4af37; /* Cor do texto */
-    text-align: center;/* Centraliza o texto dentro do rodapé */
-    padding: 10px 0; /* Espaçamento interno vertical de 10px e */
-    position: relative; /* Posicionamento relativo para manter a estrutura */ 
-
+    width: 100%;
+    background-color: #1c1c1c; 
+    color: #d4af37; 
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
 }
 
-/* Para garantir que o conteúdo acima do rodapé não seja sobreposto */
-body {
-    margin-bottom: 50px; /* Ajuste o valor conforme a altura do rodapé */
-}
-
-/* Estilo do link no rodapé */
 footer a {
-    color: #3399ff; /* Cor dos links */
-    text-decoration: none;/* Remove o sublinhado dos links */
+    color: #3399ff;
+    text-decoration: none;
 }
-/* Efeito ao passar o mouse sobre os links */
+
 footer a:hover {
-    text-decoration: underline;/* Sublinha o link ao passar o mouse */
+    text-decoration: underline;
 }
 
 /* Estilo para a mensagem de erro */
@@ -122,9 +134,10 @@ footer a:hover {
     margin-bottom: 15px;
 }
 
-/* Estilo para o contêiner de login */
+/* Contêiner de login */
 .login-container {
-    width: 300px;
+    width: 100%;
+    max-width: 350px;
     margin: 0 auto;
     background-color: #d4af37;
     padding: 20px;
@@ -143,24 +156,19 @@ footer a:hover {
     flex-direction: column;
 }
 
-.login-container form label {
-    margin-bottom: 5px;
-}
-
 .login-container form input[type="email"],
 .login-container form input[type="password"] {
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin-left: -10px;
-   
 }
 
+/* Estilo do botão de login */
 .login-container form button[type="submit"] {
     background-color: #5cb85c;
     color: white;
-    padding: 10px;
+    padding: 12px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -169,4 +177,60 @@ footer a:hover {
 
 .login-container form button[type="submit"]:hover {
     background-color: #4cae4c;
+}
+
+/* Estilos responsivos */
+@media (max-width: 1024px) {
+    .admin-container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    table th, table td {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-container {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .table-container {
+        overflow-x: scroll; /* Ativa rolagem horizontal */
+    }
+
+    table th, table td {
+        font-size: 0.8em;
+        padding: 8px;
+    }
+
+    form button[type="submit"] {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.2em;
+    }
+
+    .login-container {
+        padding: 15px;
+    }
+
+    .login-container form button[type="submit"] {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    table th, table td {
+        font-size: 0.7em;
+    }
 }

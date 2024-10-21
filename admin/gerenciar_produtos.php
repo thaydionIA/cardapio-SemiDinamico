@@ -28,8 +28,7 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Gerenciar Produtos</title>
     <link rel="stylesheet" href="assets/css/admin_style.css">
     <style>
-        /* Adicionando estilos CSS diretamente no arquivo PHP */
-
+        /* Estilo para o contêiner do painel administrativo */
         .admin-container {
             width: 80%;
             margin: 0 auto;
@@ -49,9 +48,9 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         /* Contêiner para a tabela com rolagem horizontal */
         .table-container {
             overflow-x: auto; /* Permite rolagem horizontal */
-            width: 100%;
-            margin-bottom: 20px;
             -webkit-overflow-scrolling: touch; /* Suaviza a rolagem em iOS */
+            background-color: #d4af37; /* Fundo amarelo */
+            padding: 10px; /* Espaçamento interno */
             border: 1px solid #ccc;
         }
 
@@ -91,8 +90,7 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             }
 
             .table-container {
-                overflow-x: auto; /* Ativa rolagem horizontal */
-                -webkit-overflow-scrolling: touch; /* Suaviza a rolagem em iOS */
+                overflow-x: scroll; /* Permite rolagem horizontal */
             }
 
             .scroll-hint {
