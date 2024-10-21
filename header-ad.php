@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cardápio - <?php echo $site_name; ?></title>
-    <link rel="stylesheet" href="/cardapio-dinamico/assets/css/style.css">
+    <link rel="stylesheet" href="/cardapio-dinamicoo/assets/css/style.css">
     <style>
         body {
             color: <?php echo $text_color; ?>;
@@ -48,7 +48,7 @@
     </div>
     <!-- Botão para retornar ao index principal -->
     <div class="return-button-container">
-        <a href="/cardapio-dinamico/index.php" class="return-button">Retornar ao Início</a>
+        <a href="/cardapio-dinamicoo/index.php" class="return-button">Retornar ao Início</a>
     </div>
 
 </header>

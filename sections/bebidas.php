@@ -3,13 +3,13 @@
 $incluir_rodape = !isset($GLOBALS['incluir_rodape']) || $GLOBALS['incluir_rodape'];
 
 if (basename($_SERVER['PHP_SELF']) == 'bebidas.php') {
-    include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-dinamico/header.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-dinamicoo/header.php';
 }
 ?>
 
 <?php
 require_once dirname(__DIR__) . '/db/conexao.php';
-$base_url = '/cardapio-dinamico/admin/uploads/produtos/';
+$base_url = '/cardapio-dinamicoo/admin/uploads/produtos/';
 
 $stmt = $pdo->prepare("SELECT * FROM produtos WHERE categoria = 'bebidas' ORDER BY nome");
 $stmt->execute();
@@ -46,7 +46,7 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- Inclusão do rodapé se o arquivo estiver sendo acessado diretamente -->
     <?php if ($incluir_rodape): ?>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-dinamico/footer.php'; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-dinamicoo/footer.php'; ?>
     <?php endif; ?>
 </body>
 </html>

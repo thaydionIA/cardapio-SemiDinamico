@@ -1,7 +1,7 @@
 <?php 
 // Incluir o header.php somente se o arquivo estiver sendo acessado diretamente
 if (basename($_SERVER['PHP_SELF']) == 'gerenciar_produtos.php') {
-    include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-dinamico/header-ad.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-dinamicoo/header-ad.php';
 }
 ?>
 <?php
@@ -61,5 +61,5 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </html>
 <?php 
 // Corrigir o caminho para o footer.php usando um caminho absoluto
-include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-dinamico/footer.php'; 
+include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-dinamicoo/footer.php'; 
 ?>
