@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$db = 'cardapio_dinamico';
+$db = 'cardapio_dinamicoo';
 $user = 'root';
 $pass = '';
 
