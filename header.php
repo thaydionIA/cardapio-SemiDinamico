@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cardápio - <?php echo $site_name; ?></title>
-    <link rel="stylesheet" href="/cardapio-dinamicoo/assets/css/style.css">
+    <link rel="stylesheet" href="/cardapio-SemiDinamico/assets/css/style.css">
     <style>
         body {
             color: <?php echo $text_color; ?>;
@@ -133,14 +133,14 @@
 
     <!-- Botão para retornar ao index principal -->
     <div class="return-button-container">
-        <a href="/cardapio-dinamicoo/index.php" class="return-button">Retornar ao Início</a>
+        <a href="/cardapio-SemiDinamico/index.php" class="return-button">Retornar ao Início</a>
     </div>
 
     <!-- Navegação principal -->
     <nav>
         <ul>
             <?php foreach ($sections as $id => $section): ?>
-                <li><a href="/cardapio-dinamicoo/<?php echo $section['url']; ?>"><?php echo $section['title']; ?></a></li>
+                <li><a href="/cardapio-SemiDinamico/<?php echo $section['url']; ?>"><?php echo $section['title']; ?></a></li>
             <?php endforeach; ?>
         </ul>
     </nav>

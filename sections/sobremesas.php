@@ -2,12 +2,12 @@
 <?php 
 // Incluir o header.php somente se o arquivo estiver sendo acessado diretamente
 if (basename($_SERVER['PHP_SELF']) == 'sobremesas.php') {
-    include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-dinamicoo/header.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-SemiDinamico/header.php';
 }
 ?> 
 <?php
 require_once dirname(__DIR__) . '/db/conexao.php';
-$base_url = '/cardapio-dinamicoo/admin/uploads/produtos/';
+$base_url = '/cardapio-SemiDinamico/admin/uploads/produtos/';
 
 $stmt = $pdo->prepare("SELECT * FROM produtos WHERE categoria = 'sobremesas' ORDER BY nome");
 $stmt->execute();
@@ -45,7 +45,7 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </html>
 <?php 
 if (basename($_SERVER['PHP_SELF']) == 'sobremesas.php') {
-    include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-dinamicoo/footer.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-SemiDinamico/footer.php';
 }
 ?>
 

@@ -1,7 +1,7 @@
 <?php 
 // Incluir o header.php somente se o arquivo estiver sendo acessado diretamente
 if (basename($_SERVER['PHP_SELF']) == 'login.php') {
-    include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-dinamicoo/header-ad.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-SemiDinamico/header-ad.php';
 }
 ?>
 <?php
@@ -53,5 +53,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </html>
 <?php 
 // Corrigir o caminho para o footer.php usando um caminho absoluto
-include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-dinamicoo/footer-ad.php'; 
+include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-SemiDinamico/footer-ad.php'; 
 ?>
