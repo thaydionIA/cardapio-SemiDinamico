@@ -34,10 +34,7 @@ header {
     box-sizing: border-box;
 }
 
-.logo-container {
-    display: flex;
-    align-items: center;
-}
+
 
 .logo-container img {
     max-width: 50px;
