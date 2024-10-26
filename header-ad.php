@@ -20,35 +20,39 @@
             align-items: center;
             justify-content: space-between;
             padding: 10px 20px;
-            flex-wrap: wrap; /* Permite quebra em telas menores */
+            flex-wrap: wrap;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 10px; /* Espaço entre logo e título */
+            gap: 10px;
         }
 
         .logo-container img {
-            width: 50px; /* Ajusta o tamanho da logo */
-            height: auto; /* Mantém a proporção da imagem */
+            width: 50px;
+            height: auto;
         }
 
         .logo-container h1 {
             margin: 0;
             font-size: 1.5em;
-            color: #d4af37; /* Cor dourada para o nome do site */
-            white-space: nowrap; /* Impede quebra de linha */
+            color: #d4af37;
+            word-break: break-word;
+            overflow-wrap: break-word;
         }
 
         .return-button-container {
+            width: 100%;
+            display: flex;
+            justify-content: center; /* Centraliza o botão */
             margin-top: 10px;
         }
 
         .return-button {
             text-decoration: none;
             color: white;
-            background-color: #f0d28b; /* Cor original do botão */
+            background-color: #f0d28b;
             padding: 10px 20px;
             border-radius: 5px;
             font-weight: bold;
@@ -56,36 +60,42 @@
         }
 
         .return-button:hover {
-            background-color: #e0b94f; /* Cor de hover */
+            background-color: #e0b94f;
         }
 
-        /* Responsividade para telas menores */
+        /* Responsividade para dispositivos menores */
         @media (max-width: 768px) {
             header {
-                flex-direction: column;
+                flex-direction: row;
+                justify-content: flex-start;
                 align-items: center;
-                text-align: center;
             }
 
             .logo-container {
-                margin-bottom: 10px;
-                justify-content: center;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+            }
+
+            .logo-container img {
+                width: 40px;
             }
 
             .logo-container h1 {
                 font-size: 1.2em;
-            }
-
-            .return-button {
-                width: 100%;
-                text-align: center;
-                margin-top: 10px;
+                margin-left: 10px;
+                margin-right: 80px;
             }
         }
 
         @media (max-width: 576px) {
+            .logo-container {
+                flex-direction: row;
+                justify-content: flex-start;
+            }
+
             .logo-container img {
-                width: 40px; /* Reduz o tamanho da logo em telas menores */
+                width: 35px;
             }
 
             .logo-container h1 {
@@ -97,16 +107,22 @@
 <body>
 
 <header>
-    <!-- Espaço para a logo e o nome do site -->
+    <!-- Logo e nome do site -->
     <div class="logo-container">
         <img src="../path/logo.jpg" alt="Logo do Cliente" class="logo">
         <h1><?php echo $site_name; ?></h1>
     </div>
 
-    <!-- Botão para retornar ao index principal -->
-    <div class="return-button-container">
-        <a href="/cardapio-SemiDinamico/index.php" class="return-button">Retornar ao Início</a>
-    </div>
+   <!-- Verifica se a página atual não é login.php ou index.php -->
+   <?php
+    $current_page = basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+    if ($current_page !== 'login.php' && $current_page !== 'index.php') {
+    ?>
+        <!-- Botão para retornar ao index principal -->
+        <div class="return-button-container">
+            <a href="/cardapio-SemiDinamico/admin/index.php" class="return-button">Retornar ao Início</a>
+        </div>
+    <?php } ?>
 </header>
 
 <main>

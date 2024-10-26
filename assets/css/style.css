@@ -65,6 +65,10 @@ nav ul li a {
     color: #d4af37;
     text-decoration: none;
 }
+nav ul li a:hover {
+    background-color: white; /* Altera o fundo para branco ao passar o mouse */
+    color: black; /* Altera a cor do texto para preto ao passar o mouse */
+}
 
 /* Responsividade do Header */
 @media (max-width: 576px) {

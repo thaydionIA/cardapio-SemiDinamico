@@ -13,16 +13,18 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
+            display: flex; /* Permite que o rodapé fique no final */
+            flex-direction: column; /* Alinha os itens em coluna */
+            height: 100vh; /* Garante que o body ocupe a altura total da tela */
         }
 
-        header {
-            background-color: <?php echo $primary_color; ?>;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 20px;
-            position: relative;
-        }
+        
+    header {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 10px;
+    }
+        
 
         .logo-container {
             display: flex;
@@ -90,16 +92,25 @@
         }
 
         .hamburger-menu {
-            display: none; /* Escondido no desktop */
+            display: none; /* Esconde o ícone por padrão */
             position: absolute;
-            top: 15px;
-            right: 20px;
+            top: 20px;
+            right: 25px;
             font-size: 24px;
             color: #d4af37;
             cursor: pointer;
             z-index: 2000;
         }
 
+        footer {
+            background-color: <?php echo $primary_color; ?>;
+            color: #d4af37; /* Cor do texto do rodapé */
+            text-align: center;
+            padding: 10px 0;
+            margin-top: auto; /* Faz o footer ficar na parte inferior */
+        }
+
+        /* Menu responsivo */
         .menu-responsive {
             display: none;
             background-color: <?php echo $primary_color; ?>;
@@ -129,15 +140,15 @@
         .menu-responsive ul li {
             padding: 15px 0;
             text-align: center;
-            border-bottom: 1px solid #d4af37;
+            border-bottom: 1px solid #d4af37; /* Linha de separação dourada */
             width: 100%;
         }
 
         .menu-responsive ul li a {
             color: #d4af37;
             font-size: 18px;
-            display: block;
-            width: 100%;
+            display: block; /* Cada link ocupa uma linha inteira */
+            width: 100%; /* O link ocupa toda a largura */
         }
 
         .close-btn {
@@ -151,36 +162,30 @@
             border: none;
         }
 
-        @media (max-width: 768px) {
+       @media (max-width: 768px) {
     header {
+        background-color: <?php echo $primary_color; ?>;
         display: flex;
-        flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        padding: 10px;
-        position: relative;
+        padding: 10px 20px;
     }
 
     .logo-container {
-        margin-right: auto; /* Garante que a logo fique totalmente à esquerda */
+        margin-right: 10px; /* Espaço entre a logo e o nome do site */
     }
 
     .site-title {
         font-size: 18px;
-        position: absolute;
-        top: 10px;
-        right: 100px; /* Nome do site no canto superior direito */
+        position: static; /* Alterado para static */
         white-space: normal; /* Permite quebra de linha */
         overflow-wrap: break-word; /* Permite quebra de palavras longas */
-        max-width: 50%; /* Limita a largura do título para facilitar a quebra */
-        text-align: right; /* Alinha o texto à direita */
+        max-width: 60%; /* Ajuste a largura máxima se necessário */
+        text-align: left; /* Alinha o texto à esquerda */
     }
 
     .hamburger-menu {
         display: block; /* Exibe o ícone de hambúrguer no mobile */
-        position: absolute;
-        top: 20px; /* Ajuste para o ícone de hambúrguer */
-        right: 25px; /* Ajuste para o ícone de hambúrguer */
         font-size: 24px;
         color: #d4af37;
         cursor: pointer;
@@ -190,56 +195,22 @@
         display: none; /* Esconde o menu tradicional em mobile */
     }
 
-    .menu-responsive {
-        display: none;
-        background-color: <?php echo $primary_color; ?>;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        z-index: 1000;
-        overflow-y: auto;
-        padding-top: 60px;
-        flex-direction: column;
-        align-items: center;
-    }
-
     .menu-responsive.menu-open {
         display: flex; /* Mostra o menu responsivo quando aberto */
     }
+    nav ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    transition: background-color 0.3s, color 0.3s; /* Adiciona transição de cor */
+}
 
-    .menu-responsive .close-btn {
-        position: absolute;
-        top: 10px;
-        right: 20px;
-        font-size: 24px;
-        color: #d4af37;
-        cursor: pointer;
-        background: none;
-        border: none;
-    }
+nav ul li a:hover {
+    background-color: white; /* Altera o fundo para branco ao passar o mouse */
+    color: black; /* Altera a cor do texto para preto ao passar o mouse */
+}
 
-    .menu-responsive ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        width: 100%;
-    }
-
-    .menu-responsive ul li {
-        padding: 15px 0;
-        text-align: center;
-        border-bottom: 1px solid #d4af37;
-        width: 100%;
-    }
-
-    .menu-responsive ul li a {
-        color: #d4af37;
-        font-size: 18px;
-        display: block;
-        width: 100%;
-    }
 }
 
     </style>
@@ -273,9 +244,7 @@
             <?php endforeach; ?>
         </ul>
     </nav>
-</header>
-
-<!-- Menu responsivo -->
+    <!-- Menu responsivo -->
 <div class="menu-responsive">
     <!-- Botão de fechar -->
     <button class="close-btn" onclick="toggleMenu()">&times;</button>
@@ -285,12 +254,19 @@
         <?php endforeach; ?>
     </ul>
 </div>
+</header>
 
-<main>
 
 <script>
     function toggleMenu() {
         const menu = document.querySelector('.menu-responsive');
+        const hamburger = document.querySelector('.hamburger-menu');
+
         menu.classList.toggle('menu-open');
+        // Alterna a exibição do ícone de hambúrguer
+        hamburger.style.display = menu.classList.contains('menu-open') ? 'none' : 'block';
     }
 </script>
+
+</body>
+</html>

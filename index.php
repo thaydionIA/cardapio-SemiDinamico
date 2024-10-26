@@ -20,6 +20,7 @@ include 'config.php';
             align-items: center;
             justify-content: space-between;
             padding: 10px 20px;
+            position: relative; /* Remove o comportamento fixo */
         }
         .logo-container {
             display: flex;

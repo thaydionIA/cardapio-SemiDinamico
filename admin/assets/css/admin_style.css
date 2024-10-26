@@ -134,9 +134,9 @@ footer a:hover {
     margin-bottom: 15px;
 }
 
-/* Contêiner de login */
+/* Ajuste para garantir que o contêiner de login seja responsivo */
 .login-container {
-    width: 100%;
+    width: 90%;
     max-width: 350px;
     margin: 0 auto;
     background-color: #d4af37;
@@ -146,37 +146,31 @@ footer a:hover {
     border-radius: 8px;
 }
 
-.login-container h1 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.login-container form {
-    display: flex;
-    flex-direction: column;
-}
-
+/* Ajuste para campos de entrada e botão de login */
 .login-container form input[type="email"],
-.login-container form input[type="password"] {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-/* Estilo do botão de login */
+.login-container form input[type="password"],
 .login-container form button[type="submit"] {
-    background-color: #5cb85c;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box; /* Garante que o padding seja incluído na largura total */
 }
 
-.login-container form button[type="submit"]:hover {
-    background-color: #4cae4c;
+/* Ajuste para telas menores */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 15px;
+        margin-top: 50px; /* Reduz a margem superior em telas menores */
+    }
+
+    .login-container h1 {
+        font-size: 1.2em;
+    }
+
+    .login-container form input[type="email"],
+    .login-container form input[type="password"],
+    .login-container form button[type="submit"] {
+        font-size: 14px;
+        padding: 8px;
+    }
 }
 
 /* Estilos responsivos */
@@ -198,7 +192,7 @@ footer a:hover {
 
 @media (max-width: 768px) {
     .scroll-hint {
-        display: block; /* Mostra o aviso de rolagem */
+        display: block !important;
     }
 
     .admin-container {
@@ -239,9 +233,11 @@ footer a:hover {
     }
 }
 .scroll-hint {
-    display: none;
-    color: #555;
+    display: none; /* Oculta por padrão */
+    color: #0c03b9; /* Cor dourada para destaque */
     font-size: 14px;
     margin-bottom: 10px;
     text-align: center;
+    word-wrap: break-word; /* Quebra palavras longas */
+    overflow-wrap: break-word; /* Quebra palavras longas */
 }
