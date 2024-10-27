@@ -27,6 +27,7 @@ h1 {
     color: #444;
     margin-bottom: 20px;
     text-align: center; /* Centraliza o título */
+    text-align: left;
 }
 
 /* Estilos dos formulários */

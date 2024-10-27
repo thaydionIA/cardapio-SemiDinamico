@@ -14,6 +14,12 @@ body {
     background-color: #444; /* Cor secundária */
     color: #d4af37; /* Cor do texto */
 }
+header h1{
+    padding: 0;
+}
+h1{
+    padding: 20px;
+}
 
 main {
     flex: 1;
@@ -113,7 +119,7 @@ nav ul li a:hover {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Máximo de três colunas */
     gap: 10px; /* Espaçamento entre os itens */
-    padding: 20px 0;
+    padding: 20px;
 }
 
 /* Produtos */
