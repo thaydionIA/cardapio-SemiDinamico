@@ -7,6 +7,9 @@ if (!isset($_SESSION['usuario'])) {
 
 require_once '../db/conexao.php';
 
+// Incluir o header-ad.php
+include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-SemiDinamico/header-ad.php';
+
 if (!isset($_GET['id'])) {
     header("Location: gerenciar_produtos.php");
     exit();
@@ -84,5 +87,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
         <p><a href="gerenciar_produtos.php">Voltar</a></p>
     </div>
+
+    <!-- Incluir o footer-ad.php -->
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-SemiDinamico/footer-ad.php'; ?>
 </body>
 </html>
