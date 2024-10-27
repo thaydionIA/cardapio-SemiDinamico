@@ -82,11 +82,13 @@ include 'config.php';
     }
 
     .site-title {
-        font-size: 18px;
-        position: absolute;
-        top: 10px;
-        right: 50px; /* Nome do site no canto superior direito */
-    }
+    font-size: 18px;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 
     .hamburger-menu {
         display: block; /* Exibe o ícone de hambúrguer no mobile */
