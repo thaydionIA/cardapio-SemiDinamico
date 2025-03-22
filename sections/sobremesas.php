@@ -33,10 +33,12 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <img src="<?php echo $base_url . htmlspecialchars($produto['imagem']); ?>" alt="<?php echo htmlspecialchars($produto['nome']); ?>">
             <?php endif; ?>
         </div>
-        <div class="produto-info">
-            <h3><?php echo htmlspecialchars($produto['nome']); ?></h3>
-            <p><?php echo htmlspecialchars($produto['descricao']); ?></p>
-            <p class="preco">Preço: R$ <?php echo number_format($produto['preco'], 2, ',', '.'); ?></p>
+            <div class="produto-info">
+                <h3><?php echo htmlspecialchars($produto['nome']); ?></h3>
+                <p><?php echo htmlspecialchars($produto['descricao']); ?></p>
+                <button class="botao-adicionar" onclick="adicionarAoCarrinho(<?php echo $produto['preco']; ?>)">
+                    Adicionar 🛒
+                </button>
         </div>
     </div>
     <?php endforeach; ?>

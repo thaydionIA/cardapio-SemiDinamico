@@ -110,11 +110,19 @@ if (isset($_GET['add'])) {
     ?>
 </main>
 
-<?php if (!empty($_SESSION['carrinho'])): ?>
-    <a href="finalizar.php" class="botao-carrinho">
-        🛒 Finalizar pedido — <span id="total-carrinho">R$ 0,00</span>
-    </a>
-<?php endif; ?>
+
+
+
+<div id="cart-popup" class="cart-popup" style="display: none;">
+  <div class="cart-content">
+    <p id="cart-total">🛒 Finalizar pedido — R$ 0,00</p>
+    <button onclick="window.location.href='finalizar.php'" class="btn-finalizar">Finalizar pedido</button>
+
+
+    <button onclick="fecharPopup()" class="btn-voltar">Voltar às compras</button>
+  </div>
+</div>
+
 
 <footer>
     <p>&copy; 2024 <?php echo $site_name; ?>. Todos os direitos reservados.</p>
@@ -135,5 +143,71 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 </script>
+
+
+<script>
+  let totalCarrinho = 0;
+
+  function adicionarAoCarrinho(preco) {
+    totalCarrinho += parseFloat(preco);
+    document.getElementById('cart-total').innerText =
+      `🛒 Finalizar pedido — R$ ${totalCarrinho.toFixed(2)}`;
+    document.getElementById('cart-popup').style.display = 'flex';
+  }
+
+  function fecharPopup() {
+    document.getElementById('cart-popup').style.display = 'none';
+  }
+
+  function finalizarPedido() {
+    alert('Redirecionando para finalizar pedido...');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('cart-popup').style.display = 'none'; // força ocultar ao carregar
+    document.getElementById('cart-popup').addEventListener('click', function(e) {
+      if (e.target.id === 'cart-popup') {
+        fecharPopup();
+      }
+    });
+  });
+  function abrirFormulario() {
+    document.getElementById('cart-popup').style.display = 'none';
+    document.getElementById('formulario-pedido').style.display = 'flex';
+  }
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const popup = document.getElementById('cart-popup');
+
+    popup.addEventListener('click', function(e) {
+      if (e.target === popup) {
+        fecharPopup();
+      }
+    });
+  });
+</script>
+
+
+<script>
+  function enviarPedidoWhatsapp(e) {
+    e.preventDefault();
+
+    const nome = document.getElementById('nome').value;
+    const telefone = document.getElementById('telefone').value;
+    const endereco = document.getElementById('endereco').value;
+    const pagamento = document.querySelector('input[name="pagamento"]:checked')?.value || '';
+
+    const itens = `Itens do pedido:\n🛒 Total: R$ ${totalCarrinho.toFixed(2)}`;
+
+    const mensagem = `Olá! Gostaria de fazer um pedido:\n\n${itens}\n\n👤 Nome: ${nome}\n📞 Telefone: ${telefone}\n🏠 Endereço: ${endereco}\n💳 Pagamento: ${pagamento}`;
+
+    const numeroWhatsApp = '62992545720'; // Substitua aqui
+    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+    window.open(url, '_blank');
+  }
+</script>
+
 </body>
 </html>
