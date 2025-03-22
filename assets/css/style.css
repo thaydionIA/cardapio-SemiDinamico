@@ -39,6 +39,15 @@ header {
     width: 100%;
     box-sizing: border-box;
 }
+.botao-adicionar {
+    background: #ffc107;
+    color: #000;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+}
 
 
 
