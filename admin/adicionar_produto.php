@@ -4,6 +4,7 @@ if (basename($_SERVER['PHP_SELF']) == 'adicionar_produto.php') {
     include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-SemiDinamico/header-ad.php';
 }
 ?>
+
 <?php
 session_start();
 if (!isset($_SESSION['usuario'])) {
@@ -11,13 +12,13 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
-require_once '../db/conexao.php';
+require_once '../conexao.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = $_POST['nome'];
     $descricao = $_POST['descricao'];
     $preco = $_POST['preco'];
-    $categoria = $_POST['categoria'];
+    $categoria = $_POST['categoria']; // só aceita 'pratos' ou 'bebidas'
 
     // Upload da imagem
     $imagem = null;
@@ -63,10 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <label for="categoria">Categoria:</label>
             <select id="categoria" name="categoria" required>
-                <option value="entradas">Entradas</option>
-                <option value="principais">Pratos Principais</option>
+                <option value="pratos">Pratos do Dia</option>
                 <option value="bebidas">Bebidas</option>
-                <option value="sobremesas">Sobremesas</option>
             </select>
 
             <label for="imagem">Imagem:</label>
@@ -78,6 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </body>
 </html>
+
 <?php 
 // Corrigir o caminho para o footer.php usando um caminho absoluto
 include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-SemiDinamico/footer-ad.php'; 

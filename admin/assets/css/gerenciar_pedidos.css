@@ -1,0 +1,41 @@
+.admin-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px;
+}
+
+.scroll-hint {
+    font-size: 14px;
+    color: gray;
+    margin-bottom: 10px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+button, select {
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.cancel-button {
+    background: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}

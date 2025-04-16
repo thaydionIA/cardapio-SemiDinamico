@@ -14,11 +14,29 @@ if (!isset($_SESSION['carrinho'])) {
 }
 
 if (isset($_GET['add'])) {
+    require_once 'db/conexao.php';
+
     $idProduto = intval($_GET['add']);
-    $_SESSION['carrinho'][] = $idProduto;
+    $stmt = $pdo->prepare("SELECT id, nome, preco FROM produtos WHERE id = ?");
+    $stmt->execute([$idProduto]);
+    $produto = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($produto) {
+        if (!isset($_SESSION['carrinho'][$idProduto])) {
+            // Produto ainda não está no carrinho, adiciona com quantidade 1
+            $produto['quantidade'] = 1;
+            $_SESSION['carrinho'][$idProduto] = $produto;
+        } else {
+            // Já existe no carrinho, incrementa a quantidade
+            $_SESSION['carrinho'][$idProduto]['quantidade'] += 1;
+        }
+    }
+
     header("Location: cardapio.php");
     exit;
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -110,19 +128,11 @@ if (isset($_GET['add'])) {
     ?>
 </main>
 
-
-
-
-<div id="cart-popup" class="cart-popup" style="display: none;">
-  <div class="cart-content">
-    <p id="cart-total">🛒 Finalizar pedido — R$ 0,00</p>
-    <button onclick="window.location.href='finalizar.php'" class="btn-finalizar">Finalizar pedido</button>
-
-
-    <button onclick="fecharPopup()" class="btn-voltar">Voltar às compras</button>
-  </div>
-</div>
-
+<?php if (!empty($_SESSION['carrinho'])): ?>
+    <a href="finalizar.php" class="botao-carrinho">
+        🛒 Finalizar pedido — <span id="total-carrinho">R$ 0,00</span>
+    </a>
+<?php endif; ?>
 
 <footer>
     <p>&copy; 2024 <?php echo $site_name; ?>. Todos os direitos reservados.</p>
@@ -143,71 +153,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 </script>
-
-
-<script>
-  let totalCarrinho = 0;
-
-  function adicionarAoCarrinho(preco) {
-    totalCarrinho += parseFloat(preco);
-    document.getElementById('cart-total').innerText =
-      `🛒 Finalizar pedido — R$ ${totalCarrinho.toFixed(2)}`;
-    document.getElementById('cart-popup').style.display = 'flex';
-  }
-
-  function fecharPopup() {
-    document.getElementById('cart-popup').style.display = 'none';
-  }
-
-  function finalizarPedido() {
-    alert('Redirecionando para finalizar pedido...');
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('cart-popup').style.display = 'none'; // força ocultar ao carregar
-    document.getElementById('cart-popup').addEventListener('click', function(e) {
-      if (e.target.id === 'cart-popup') {
-        fecharPopup();
-      }
-    });
-  });
-  function abrirFormulario() {
-    document.getElementById('cart-popup').style.display = 'none';
-    document.getElementById('formulario-pedido').style.display = 'flex';
-  }
-</script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const popup = document.getElementById('cart-popup');
-
-    popup.addEventListener('click', function(e) {
-      if (e.target === popup) {
-        fecharPopup();
-      }
-    });
-  });
-</script>
-
-
-<script>
-  function enviarPedidoWhatsapp(e) {
-    e.preventDefault();
-
-    const nome = document.getElementById('nome').value;
-    const telefone = document.getElementById('telefone').value;
-    const endereco = document.getElementById('endereco').value;
-    const pagamento = document.querySelector('input[name="pagamento"]:checked')?.value || '';
-
-    const itens = `Itens do pedido:\n🛒 Total: R$ ${totalCarrinho.toFixed(2)}`;
-
-    const mensagem = `Olá! Gostaria de fazer um pedido:\n\n${itens}\n\n👤 Nome: ${nome}\n📞 Telefone: ${telefone}\n🏠 Endereço: ${endereco}\n💳 Pagamento: ${pagamento}`;
-
-    const numeroWhatsApp = '62992545720'; // Substitua aqui
-    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
-    window.open(url, '_blank');
-  }
-</script>
-
 </body>
 </html>

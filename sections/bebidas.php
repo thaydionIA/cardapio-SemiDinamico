@@ -39,10 +39,7 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <h3><?php echo htmlspecialchars($produto['nome']); ?></h3>
                 <p><?php echo htmlspecialchars($produto['descricao']); ?></p>
                 <p class="preco">Preço: R$ <?php echo number_format($produto['preco'], 2, ',', '.'); ?></p>
-                <button class="botao-adicionar" onclick="adicionarAoCarrinho(<?php echo $produto['preco']; ?>)">
-                    Adicionar 🛒
-                </button>
-
+                <a href="cardapio.php?add=<?php echo $produto['id']; ?>" class="botao-adicionar">Adicionar 🛒</a>
             </div>
         </div>
         <?php endforeach; ?>

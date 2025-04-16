@@ -1,0 +1,55 @@
+body {
+    font-family: monospace;
+    width: 300px;
+    margin: 0 auto;
+    background: white;
+    color: black;
+    padding: 0;
+}
+
+h1 {
+    font-size: 14px;
+    text-align: center;
+    margin: 10px 0;
+}
+
+p {
+    margin: 5px 0;
+    font-size: 12px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 4px;
+    text-align: left;
+    border-bottom: 1px dashed #ccc;
+}
+
+.total {
+    text-align: right;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+.print-btn {
+    margin: 10px 0;
+    text-align: center;
+}
+
+@media print {
+    .print-btn {
+        display: none;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+    }
+}

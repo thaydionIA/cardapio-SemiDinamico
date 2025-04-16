@@ -1,46 +1,74 @@
 <?php
-session_start();
 require_once __DIR__ . '/db/conexao.php';
+session_start();
 
-if (!isset($_SESSION['carrinho'], $_SESSION['nome_cliente'])) {
-    header("Location: index.php");
+$venda_id = isset($_GET['venda_id']) ? intval($_GET['venda_id']) : 0;
+
+if ($venda_id <= 0) {
+    echo "Pedido inválido.";
     exit;
 }
 
-// Dados do formulário
-$telefone = htmlspecialchars($_POST['telefone']);
-$endereco = htmlspecialchars($_POST['endereco']);
-$pagamento = htmlspecialchars($_POST['pagamento']);
+// Buscar dados da venda
+$stmt = $pdo->prepare("SELECT * FROM vendas WHERE id = ?");
+$stmt->execute([$venda_id]);
+$pedido = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Busca produtos
-$ids = array_filter(array_map('intval', $_SESSION['carrinho']));
-$idList = implode(',', $ids);
-
-$stmt = $pdo->prepare("SELECT nome, preco FROM produtos WHERE id IN ($idList)");
-$stmt->execute();
-$produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// Monta mensagem formatada
-$mensagem = "*🛒 Pedido Realizado*\n\n";
-$mensagem .= "*Cliente:* {$_SESSION['nome_cliente']}\n";
-$mensagem .= "*Telefone:* $telefone\n";
-$mensagem .= "*Endereço:* $endereco\n";
-$mensagem .= "*Forma de Pagamento:* $pagamento\n\n";
-
-$mensagem .= "*Itens do Pedido:*\n";
-$total = 0;
-foreach ($produtos as $item) {
-    $nome = $item['nome'];
-    $preco = number_format($item['preco'], 2, ',', '.');
-    $mensagem .= "• $nome — R$ $preco\n";
-    $total += $item['preco'];
+if (!$pedido) {
+    echo "Pedido não encontrado.";
+    exit;
 }
 
-$mensagem .= "\n*Total:* R$ " . number_format($total, 2, ',', '.');
+// Buscar itens
+$stmtItens = $pdo->prepare("
+    SELECT iv.quantidade, iv.preco, p.nome 
+    FROM itens_venda iv
+    JOIN produtos p ON p.id = iv.produto_id
+    WHERE iv.venda_id = ?
+");
+$stmtItens->execute([$venda_id]);
+$itens = $stmtItens->fetchAll(PDO::FETCH_ASSOC);
 
-// Número do restaurante (com DDD, sem + ou traços)
-$numero = '62992545720';
+// Montar mensagem
+$mensagem = "Pedido de *{$pedido['cliente_nome']}*\n\n";
+foreach ($itens as $item) {
+    $mensagem .= "- {$item['quantidade']}x {$item['nome']} - R$ " . number_format($item['preco'], 2, ',', '.') . "\n";
+}
+$mensagem .= "\n*Total:* R$ " . number_format($pedido['total'], 2, ',', '.');
+$mensagem .= "\n\n*Contato:* {$pedido['contato']}";
+$mensagem .= "\n*Endereço:* {$pedido['endereco']}";
+$mensagem .= "\n*Pagamento:* {$pedido['status']}";
 
-// Redireciona para WhatsApp com mensagem formatada
-header("Location: https://wa.me/$numero?text=" . urlencode($mensagem));
-exit;
+// Encodar a mensagem
+$mensagemCodificada = urlencode($mensagem);
+$numeroWhatsApp = '556294035584'; // Substitua pelo número real
+$link = "https://wa.me/$numeroWhatsApp?text=$mensagemCodificada";
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedido Finalizado</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 40px;
+            background: #f9f9f9;
+            text-align: center;
+        }
+        .btn {
+            background-color: #25D366;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Pedido registrado com sucesso!</h2>
+    <p>Clique no botão abaixo para enviar o pedido via WhatsApp:</p>
+    <a class="btn" href="<?php echo $link; ?>" target="_blank">Enviar pelo WhatsApp</a>
+</body>
+</html>
