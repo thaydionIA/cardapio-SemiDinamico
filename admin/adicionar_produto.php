@@ -12,13 +12,14 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
-require_once '../conexao.php';
+require_once '../db/conexao.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = $_POST['nome'];
     $descricao = $_POST['descricao'];
     $preco = $_POST['preco'];
     $categoria = $_POST['categoria']; // só aceita 'pratos' ou 'bebidas'
+    $disponivel = $_POST['disponivel'] ?? 0;
 
     // Upload da imagem
     $imagem = null;
@@ -28,12 +29,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         move_uploaded_file($_FILES['imagem']['tmp_name'], 'uploads/produtos/' . $imagem);
     }
 
-    $stmt = $pdo->prepare("INSERT INTO produtos (nome, descricao, preco, categoria, imagem) VALUES (:nome, :descricao, :preco, :categoria, :imagem)");
+    $stmt = $pdo->prepare("INSERT INTO produtos (nome, descricao, preco, categoria, imagem, disponivel) VALUES (:nome, :descricao, :preco, :categoria, :imagem, :disponivel)");
     $stmt->bindParam(':nome', $nome);
     $stmt->bindParam(':descricao', $descricao);
     $stmt->bindParam(':preco', $preco);
     $stmt->bindParam(':categoria', $categoria);
     $stmt->bindParam(':imagem', $imagem);
+    $stmt->bindParam(':disponivel', $disponivel);
     $stmt->execute();
 
     header("Location: gerenciar_produtos.php");
@@ -70,6 +72,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <label for="imagem">Imagem:</label>
             <input type="file" id="imagem" name="imagem" accept="image/*">
+
+            <!-- Garantir que valor 0 seja enviado quando não marcado -->
+            <input type="hidden" name="disponivel" value="0">
+            <label for="disponivel">
+                <input type="checkbox" id="disponivel" name="disponivel" value="1">
+                Disponível no cardápio
+            </label>
+
 
             <button type="submit">Adicionar Produto</button>
         </form>

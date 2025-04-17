@@ -1,53 +1,47 @@
 <?php
-// Verificar se a variável global $incluir_rodape está definida e se deve incluir o rodapé
 $incluir_rodape = !isset($GLOBALS['incluir_rodape']) || $GLOBALS['incluir_rodape'];
 
 if (basename($_SERVER['PHP_SELF']) == 'bebidas.php') {
     include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-SemiDinamico/header.php';
 }
-?>
 
-<?php
 require_once dirname(__DIR__) . '/db/conexao.php';
 $base_url = '/cardapio-SemiDinamico/admin/uploads/produtos/';
 
-$stmt = $pdo->prepare("SELECT * FROM produtos WHERE categoria = 'bebidas' ORDER BY nome");
+$stmt = $pdo->prepare("SELECT * FROM produtos WHERE categoria = 'bebidas' AND disponivel = 1 ORDER BY nome");
 $stmt->execute();
 $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Garantir que a sessão esteja ativa para acesso ao carrinho
+if (!isset($_SESSION)) session_start();
+$carrinho = $_SESSION['carrinho'] ?? [];
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bebidas</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
-</head>
-<body>
-    <h1>Bebidas</h1>
-    <div class="produtos-container">
-        <?php foreach ($produtos as $produto): ?>
-        <div class="produto-item">
-            <div class="produto-imagem">
-                <?php if ($produto['imagem']): ?>
-                    <!-- Caminho absoluto para a imagem -->
-                    <img src="<?php echo $base_url . htmlspecialchars($produto['imagem']); ?>" alt="<?php echo htmlspecialchars($produto['nome']); ?>">
-                <?php endif; ?>
-            </div>
-            <div class="produto-info">
-                <h3><?php echo htmlspecialchars($produto['nome']); ?></h3>
-                <p><?php echo htmlspecialchars($produto['descricao']); ?></p>
-                <p class="preco">Preço: R$ <?php echo number_format($produto['preco'], 2, ',', '.'); ?></p>
-                <a href="cardapio.php?add=<?php echo $produto['id']; ?>" class="botao-adicionar">Adicionar 🛒</a>
-            </div>
+<h1>Bebidas</h1>
+<div class="produtos-container">
+    <?php foreach ($produtos as $produto): ?>
+    <div class="produto-item">
+        <div class="produto-imagem">
+            <?php if ($produto['imagem']): ?>
+                <img src="<?php echo $base_url . htmlspecialchars($produto['imagem']); ?>" alt="<?php echo htmlspecialchars($produto['nome']); ?>">
+            <?php endif; ?>
         </div>
-        <?php endforeach; ?>
-    </div>
+        <div class="produto-info">
+            <h3><?php echo htmlspecialchars($produto['nome']); ?></h3>
+            <p><?php echo htmlspecialchars($produto['descricao']); ?></p>
+            <p class="preco">Preço: R$ <?php echo number_format($produto['preco'], 2, ',', '.'); ?></p>
 
-    <!-- Inclusão do rodapé se o arquivo estiver sendo acessado diretamente -->
-    <?php if ($incluir_rodape): ?>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-SemiDinamico/footer.php'; ?>
-    <?php endif; ?>
-</body>
-</html>
+            <?php $jaAdicionado = isset($carrinho[$produto['id']]); ?>
+            <a href="cardapio.php?<?php echo $jaAdicionado ? 'remove' : 'add'; ?>=<?php echo $produto['id']; ?>"
+               class="botao-adicionar"
+               style="background-color: <?php echo $jaAdicionado ? '#dc3545' : '#ffc107'; ?>; color: <?php echo $jaAdicionado ? '#fff' : '#000'; ?>;">
+               <?php echo $jaAdicionado ? '❌ Excluir Pedido' : 'Adicionar 🛒'; ?>
+            </a>
+        </div>
+    </div>
+    <?php endforeach; ?>
+</div>
+
+<?php if ($incluir_rodape): ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/cardapio-SemiDinamico/footer.php'; ?>
+<?php endif; ?>

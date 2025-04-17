@@ -312,3 +312,38 @@ footer {
   padding: 0;
 }
 
+.botao-carrinho {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    font-size: 16px;
+    border-radius: 30px;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.botao-carrinho.botao-verde {
+    background-color: #28a745;
+    color: white;
+}
+
+.botao-carrinho.botao-vermelho {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Animação opcional para efeito de troca */
+@keyframes fade-in {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.botao-carrinho {
+    animation: fade-in 0.3s ease-in-out;
+}

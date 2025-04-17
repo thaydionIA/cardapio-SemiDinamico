@@ -21,9 +21,20 @@ foreach ($carrinho as $item) {
     $total += $item['preco'] * $item['quantidade'];
 }
 
+// Define o status corretamente para compatibilidade com ENUM do banco
+if ($pagamento === 'Cartão') {
+    $status_formatado = 'Pago (Cartão De Crédito)';
+} elseif ($pagamento === 'Pix') {
+    $status_formatado = 'Pago (Pix)';
+} elseif ($pagamento === 'Dinheiro') {
+    $status_formatado = 'Pago (Dinheiro)';
+} else {
+    $status_formatado = 'Pendente';
+}
+
 // 1. Salvar venda
 $stmt = $pdo->prepare("INSERT INTO vendas (cliente_nome, contato, endereco, total, status) VALUES (?, ?, ?, ?, ?)");
-$stmt->execute([$nome, $contato, $endereco, $total, "Pago ($pagamento)"]);
+$stmt->execute([$nome, $contato, $endereco, $total, $status_formatado]);
 $venda_id = $pdo->lastInsertId();
 
 // 2. Salvar itens

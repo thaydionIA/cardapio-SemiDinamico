@@ -8,22 +8,14 @@ $banner_image_path = '../cardapio-SemiDinamico/path/r.jpg'; // Substitua pelo ca
 
 // Definição de seções com caminhos corretos
 $sections = [
-    "entradas" => [
-        "title" => "Entradas",
-        "url" => "sections/entradas.php"
-    ], 
-    "principais" => [
-        "title" => "Pratos Principais",
-        "url" => "sections/principais.php"
+    'pratos' => [
+        'title' => 'Prato do Dia',
+        'url' => 'sections/pratos.php'
     ],
-    "bebidas" => [
-        "title" => "Bebidas",
-        "url" => "sections/bebidas.php"
-    ],
-    "sobremesas" => [
-        "title" => "Sobremesas",
-        "url" => "sections/sobremesas.php"
-    ],
+    'bebidas' => [
+        'title' => 'Bebidas',
+        'url' => 'sections/bebidas.php'
+    ]
 ];
 ?>
 

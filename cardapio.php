@@ -35,7 +35,14 @@ if (isset($_GET['add'])) {
     header("Location: cardapio.php");
     exit;
 }
-
+if (isset($_GET['remove'])) {
+    $idRemover = intval($_GET['remove']);
+    if (isset($_SESSION['carrinho'][$idRemover])) {
+        unset($_SESSION['carrinho'][$idRemover]);
+    }
+    header("Location: cardapio.php");
+    exit;
+}
 
 ?>
 <!DOCTYPE html>
@@ -151,6 +158,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 total.innerText = 'R$ ' + data.total;
             });
     }
+
+    // Trocar botão Adicionar/Excluir
+    document.querySelectorAll('.botao-toggle').forEach(button => {
+        button.addEventListener('click', function (e) {
+            e.preventDefault();
+            const id = this.dataset.id;
+            const isAdded = this.dataset.added === 'true';
+
+            if (!isAdded) {
+                window.location.href = `cardapio.php?add=${id}`;
+            } else {
+                window.location.href = `cardapio.php?remove=${id}`;
+            }
+        });
+    });
 });
 </script>
 </body>

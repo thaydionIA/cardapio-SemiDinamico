@@ -58,6 +58,13 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <?php endif; ?>
                     </td>
                     <td>
+                     <label class="switch">
+                        <input type="checkbox" <?= $produto['disponivel'] ? 'checked' : '' ?>
+                               onchange="atualizarDisponibilidade(<?= $produto['id']; ?>, this.checked)">
+                        <span class="slider round"></span>
+                     </label>
+                    </td>
+                    <td>
                         <a href="editar_produto.php?id=<?php echo $produto['id']; ?>">Editar</a> |
                         <a href="remover_produto.php?id=<?php echo $produto['id']; ?>" onclick="return confirm('Tem certeza que deseja remover este produto?')">Remover</a>
                     </td>
@@ -68,6 +75,19 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <p><a href="index.php">Voltar ao Painel</a></p>
     </div>
+
+<script>
+function atualizarDisponibilidade(id, status) {
+    fetch('atualizar_disponibilidade.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `id=${id}&status=${status ? 1 : 0}`
+    }).then(response => response.text()).then(msg => {
+        console.log('Resposta:', msg);
+    });
+}
+</script>
+
 </body>
 </html>
 
