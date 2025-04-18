@@ -71,10 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <label for="categoria">Categoria:</label>
             <select id="categoria" name="categoria" required>
-                <option value="entradas" <?php echo $produto['categoria'] == 'entradas' ? 'selected' : ''; ?>>Entradas</option>
-                <option value="principais" <?php echo $produto['categoria'] == 'principais' ? 'selected' : ''; ?>>Pratos Principais</option>
+                <option value="pratos" <?php echo $produto['categoria'] == 'pratos' ? 'selected' : ''; ?>>Pratos do Dia</option>
                 <option value="bebidas" <?php echo $produto['categoria'] == 'bebidas' ? 'selected' : ''; ?>>Bebidas</option>
-                <option value="sobremesas" <?php echo $produto['categoria'] == 'sobremesas' ? 'selected' : ''; ?>>Sobremesas</option>
             </select>
 
             <label for="imagem">Imagem:</label>
